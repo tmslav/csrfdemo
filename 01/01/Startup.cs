@@ -30,6 +30,15 @@ namespace _01
             {
                 options.Filters.Add(new Microsoft.AspNetCore.Mvc.AutoValidateAntiforgeryTokenAttribute());
             });
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+            });
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +46,7 @@ namespace _01
         {
 
             app.UseDeveloperExceptionPage();
+            app.UseSession();
             app.UseCors(builder => builder.WithOrigins("http://localhost:9000")
                                 .AllowAnyMethod()
                                 .AllowAnyHeader());
