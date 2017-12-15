@@ -7,11 +7,11 @@
  * # MainCtrl
  * Controller of the wwwrootApp
  */
-angular.module('wwwrootApp',)
-  .controller('MainCtrl', ['$scope','$q','$http',function ($scope,$q,$http) {
+
+function blabla($scope,$q,$http) {
     function check(name){
         var def = $q.defer();
-        $http.post("http://localhost:5000/api/Values/",name).then(function (response) {
+        $http.get("http://localhost:5000/api/Values/").then(function (response) {
             def.resolve(response);
         });
         return def.promise;
@@ -21,4 +21,7 @@ angular.module('wwwrootApp',)
             $scope.response = data;
         })
     }
-  }]);
+  };
+angular.module('wwwrootApp',)
+  .controller('MainCtrl', ['$scope','$q','$http', blabla])
+

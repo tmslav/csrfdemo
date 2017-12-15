@@ -19,5 +19,6 @@
 
   <ItemGroup>
     <None Remove="wwwroot\app\scripts\controllers\about.js" />
+    <None Remove="web.config" />
   </ItemGroup>
 </Project>

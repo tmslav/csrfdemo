@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _01.Utils;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -35,9 +37,23 @@ namespace _01
         {
 
             app.UseDeveloperExceptionPage();
+            app.UseCors(builder => builder.WithOrigins("http://localhost:9000")
+                                .AllowAnyMethod()
+                                .AllowAnyHeader());
+            app.UseContentSecurityPolicy();
+            app.UseAngularPushStateRouting(); 
+            app.UseAngularAntiforgeryToken();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
 
-            app.UseCors("AllowAllHeaders");
-            app.UseMvc();
+                // routes.MapSpaFallbackRoute("angular-fallback",
+                // new { controller = "Home", action = "Index" });
+            });
+            app.UseDefaultFiles();
+			app.UseStaticFiles();
         }
     }
 }
